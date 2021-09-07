@@ -23,3 +23,65 @@
 .list-complete-leave-active {
   position: absolute;
 }
+
+.btn-sm {
+  @apply mx-2
+  w-auto
+  rounded-md
+  border border-gray-300
+  shadow-sm
+  px-1
+  py-1
+  bg-white
+  text-base
+  font-medium
+  text-gray-700
+  hover:bg-gray-50
+  focus:outline-none
+  focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500;
+}
+
+.btn {
+  @apply mt-3
+  w-full
+  inline-flex
+  justify-center
+  items-center
+  rounded-md border
+  border-gray-300 
+  shadow-sm 
+  px-4 
+  py-2 
+  bg-white
+  text-base 
+  font-medium 
+  text-gray-700
+  hover:bg-gray-50 
+  focus:outline-none 
+  focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
+  sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm;
+}
+
+.btn-primary {
+  @apply bg-purple-600
+  text-white
+  hover:bg-purple-700
+  focus:ring-purple-500;
+}
+
+.input {
+  @apply mt-1
+  focus:ring-indigo-500
+  focus:border-indigo-500
+  block
+  w-full
+  shadow-sm
+  sm:text-sm
+  border-gray-300
+  rounded-md;
+}
+
+.btn-long {
+  @apply px-10
+  m-0;
+}

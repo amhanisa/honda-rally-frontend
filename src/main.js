@@ -1,12 +1,12 @@
 import { createApp, h } from "vue";
-import Dashboard from "./components/Dashboard.vue";
-import ScoreBoard from "./components/ScoreBoard.vue";
+import CommunityDashboard from "./components/CommunityDashboard.vue";
+import CommunityScore from "./components/CommunityScore.vue";
 import NotFound from "./components/NotFound.vue";
 import "./styles/main.scss";
 
 const routes = {
-  "/": ScoreBoard,
-  "/app": Dashboard,
+  "/": CommunityScore,
+  "/app": CommunityDashboard,
 };
 
 const simpleRouter = {

@@ -1,13 +1,5 @@
 <template>
-  <div class="hello">
-    <img
-      alt="Honda Challenge 2.0 Logo"
-      src="../assets/hc2-logo.png"
-      class="max-w-xs mx-auto"
-    />
-    <h1 class="text-4xl font-bold">Scoreboard</h1>
-    <p class="text-sm">Last updated on</p>
-    <p class="text-xs">{{ this.updateTime }}</p>
+  <div>
     <div class="container mx-auto">
       <div class="max-w-xl sm:mx-auto p-5 rounded-md shadow-xl mx-5 mt-8">
         <div class="list-complete-item mb-4">
@@ -58,54 +50,12 @@
         </transition-group>
       </div>
     </div>
-    <footer class="py-3 mt-14">
-      created by <a href="https://dealpro.id">dealpro.id</a>
-    </footer>
   </div>
 </template>
 
 <script>
-import axios from "axios";
-import CONFIG from "../config/config";
-
 export default {
-  name: "ScoreBoard",
-  data() {
-    return {
-      teams: [],
-      updateTime: null,
-      interval: null,
-    };
-  },
-
-  mounted() {
-    this.updateRanks();
-    this.interval = setInterval(() => {
-      this.updateRanks();
-    }, 5000);
-  },
-
-  beforeUnmount() {
-    clearInterval(this.interval);
-  },
-
-  methods: {
-    updateRanks() {
-      axios.get(`${CONFIG.API_URL}/getRanks`).then((res) => {
-        console.log(res);
-        this.teams = res.data.ranks;
-        const date = new Date(res.data.updateTime);
-        const options = {
-          weekday: "long",
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-          hour: "numeric",
-          minute: "numeric",
-        };
-        this.updateTime = date.toLocaleDateString("en-US", options);
-      });
-    },
-  },
+  name: "Scoreboard",
+  props: ["teams"],
 };
 </script>
