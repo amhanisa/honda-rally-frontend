@@ -7,18 +7,43 @@
         <div class="flex flex-col sm:flex-row justify-between sm:items-end">
           <div>
             <p class="text-left font-bold text-sm mb-2">Select Category:</p>
-            <select v-model="type" @change="applyType">
-              <option disabled>Please select one</option>
-              <option value="COMMUNITY">Community</option>
-              <option value="CONSUMENT">Consument</option>
-              <option value="MEDIA">Media</option>
-              <option value="MANAGER">Manager</option>
-            </select>
+            <div class="flex flex-col sm:flex-row">
+              <select v-model="type" @change="applyType">
+                <option disabled>Please select one</option>
+                <option value="COMMUNITY">Community</option>
+                <option value="CONSUMENT">Consument</option>
+                <option value="MEDIA">Media</option>
+                <option value="MANAGER">Manager</option>
+              </select>
+              <button @click="applyType" class="btn">
+                <IconRefresh class="mr-2" />
+                <span class="font-bold"> Refresh </span>
+              </button>
+              <button @click="logout" class="btn">
+                <IconLogout class="mr-2" />
+                <span class="font-bold"> Logout </span>
+              </button>
+            </div>
           </div>
           <div>
-            <button @click="applyType" class="btn">
-              <IconRefresh class="mr-2" />
-              <span class="font-bold"> Refresh </span>
+            <p class="text-left font-bold text-sm mt-3 sm:mb-2">
+              Website Status:
+            </p>
+            <button
+              @click="openModalEnableWebsite"
+              class="btn btn-green"
+              :class="{
+                'btn-red':
+                  this.enableWebsite === 0 || this.enableWebsite === false,
+              }"
+            >
+              <span
+                v-if="this.enableWebsite === 1 || this.enableWebsite === true"
+                class="font-bold"
+              >
+                Enabled
+              </span>
+              <span v-else class="font-bold"> Disabled </span>
             </button>
           </div>
         </div>
@@ -141,6 +166,26 @@
         <button @click="destroyTeam" class="btn btn-primary">Delete</button>
       </template>
     </Modal>
+
+    <Modal
+      v-show="this.showModalEnableWebsite"
+      @close="this.closeModalEnableWebsite"
+    >
+      <template v-slot:header>Active/Deactive Website</template>
+      <template v-slot:body>
+        <p>
+          Are you sure to
+          <span v-if="this.enableWebsite" class="font-bold">disable</span>
+          <span v-else class="font-bold">enable</span>
+          the website?
+        </p>
+      </template>
+      <template v-slot:footer>
+        <button @click="toggleEnableWebsite" class="btn btn-primary">
+          Okay
+        </button>
+      </template>
+    </Modal>
   </div>
 </template>
 
@@ -153,6 +198,7 @@ import IconSetting from "../assets/IconSetting.vue";
 import IconTrash from "../assets/IconTrash.vue";
 import IconAdd from "../assets/IconAdd";
 import IconRefresh from "../assets/IconRefesh.vue";
+import IconLogout from "../assets/IconLogout.vue";
 
 export default {
   name: "CommunityDashboard",
@@ -163,6 +209,7 @@ export default {
     IconTrash,
     IconAdd,
     IconRefresh,
+    IconLogout,
     Footer,
   },
 
@@ -173,10 +220,19 @@ export default {
       showModalAdd: false,
       showModalEdit: false,
       showModalDelete: false,
+      showModalEnableWebsite: false,
+      enableWebsite: null,
       inputTeamId: "",
       inputTeamName: "",
       inputTeamScore: "",
     };
+  },
+
+  mounted() {
+    axios.get(`${CONFIG.API_URL}/checkAccess`).then((res) => {
+      console.log(res);
+      this.enableWebsite = res.data;
+    });
   },
 
   methods: {
@@ -256,6 +312,18 @@ export default {
           this.closeModalDelete();
         });
     },
+    toggleEnableWebsite() {
+      axios
+        .post(`${CONFIG.API_URL}/toggleEnableWebsite`, {
+          value: !this.enableWebsite,
+        })
+        .then((res) => {
+          console.log(res);
+          this.enableWebsite = !this.enableWebsite;
+          console.log(this.enableWebsite);
+          this.closeModalEnableWebsite();
+        });
+    },
 
     openModalAdd() {
       if (!this.checkType()) {
@@ -279,6 +347,17 @@ export default {
     },
     closeModalDelete() {
       this.showModalDelete = false;
+    },
+    openModalEnableWebsite() {
+      this.showModalEnableWebsite = true;
+    },
+    closeModalEnableWebsite() {
+      this.showModalEnableWebsite = false;
+    },
+
+    logout() {
+      localStorage.clear();
+      this.$router.push("/");
     },
   },
 };

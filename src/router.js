@@ -6,17 +6,39 @@ import MediaScore from "./components/MediaScore.vue";
 import ManagerScore from "./components/ManagerScore.vue";
 import Dashboard from "./components/Dashboard.vue";
 import AllScore from "./components/AllScore.vue";
+import Close from "./components/Close.vue";
 import NotFound from "./components/NotFound.vue";
+import TheProtector from "./components/TheProtector.vue";
+import axios from "axios";
+import CONFIG from "./config/config";
+
+const checkAccess = () => {
+  return axios.get(`${CONFIG.API_URL}/checkAccess`).then((res) => {
+    console.log(res);
+    const enableWebsite = res.data;
+    if (!enableWebsite) {
+      return router.push({ path: "/close" });
+    }
+  });
+};
+
+const checkAdmin = () => {
+  if (!localStorage.getItem("user-password")) {
+    return router.push({ path: "/theprotector" });
+  }
+  return true;
+};
 
 const routes = [
   { path: "/", component: Home },
-  { path: "/home", component: Home },
-  { path: "/community", component: CommunityScore },
-  { path: "/consument", component: ConsumentScore },
-  { path: "/media", component: MediaScore },
-  { path: "/manager", component: ManagerScore },
-  { path: "/app", component: Dashboard },
+  { path: "/community", component: CommunityScore, beforeEnter: [checkAccess] },
+  { path: "/consument", component: ConsumentScore, beforeEnter: [checkAccess] },
+  { path: "/media", component: MediaScore, beforeEnter: [checkAccess] },
+  { path: "/manager", component: ManagerScore, beforeEnter: [checkAccess] },
+  { path: "/app", component: Dashboard, beforeEnter: [checkAdmin] },
   { path: "/all", component: AllScore },
+  { path: "/close", component: Close },
+  { path: "/theprotector", component: TheProtector },
   { path: "/:pathMatch(.*)*", component: NotFound },
 ];
 

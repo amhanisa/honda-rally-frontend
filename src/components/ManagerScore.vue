@@ -2,6 +2,7 @@
   <div>
     <Header :title="this.title" />
     <LastUpdate :updateTime="this.updateTime" />
+    <BackHome />
     <Scoreboard :teams="teams"></Scoreboard>
     <Footer />
   </div>
@@ -13,6 +14,7 @@ import CONFIG from "../config/config";
 import Header from "./Header.vue";
 import Scoreboard from "./Scoreboard";
 import LastUpdate from "./LastUpdate.vue";
+import BackHome from "./BackHome.vue";
 import Footer from "./Footer.vue";
 
 export default {
@@ -21,6 +23,7 @@ export default {
     Header,
     Scoreboard,
     LastUpdate,
+    BackHome,
     Footer,
   },
 
