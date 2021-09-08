@@ -1,48 +1,74 @@
 <template>
   <div>
-    <h1>Community Dashboard</h1>
+    <h1>Honda Challenge Dashboard</h1>
 
-    <div class="container max-w-4xl mx-auto p-5 shadow-xl">
-      <table class="w-full">
-        <thead>
-          <tr class="border-b-2 border-gray-100">
-            <td class="font-bold text-lg w-12">No</td>
-            <td class="font-bold text-lg w-36">Team Name</td>
-            <td class="font-bold text-lg w-36">Score</td>
-            <td class="font-bold text-lg w-5">Config</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            v-for="(item, index) in teams"
-            :key="index"
-            class="border-b-2 border-gray-100"
-          >
-            <td class="team-number">{{ index + 1 }}</td>
-            <td class="team-name">
-              {{ item.team }}
-            </td>
-            <td class="team-score">
-              {{ item.score }}
-            </td>
-            <td class="flex items-center justify-center h-14">
-              <button @click="editTeam(item)" class="btn-sm">
-                <IconSetting class="h-4 w-4" />
-              </button>
-              <button @click="deleteTeam(item)" class="btn-sm">
-                <IconTrash class="h-4 w-4" />
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="4" class="h-14 py-4">
-              <button @click="openModalAdd" class="btn btn-long">
-                <IconAdd class="mr-2" /> <span class="font-bold">Add Team</span>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="container mx-auto">
+      <div class="sm:mx-auto max-w-4xl mx-5 p-5 rounded-md shadow-md mb-5">
+        <div class="flex flex-col sm:flex-row justify-between sm:items-end">
+          <div>
+            <p class="text-left font-bold text-sm mb-2">Select Category:</p>
+            <select v-model="type" @change="applyType">
+              <option disabled>Please select one</option>
+              <option value="COMMUNITY">Community</option>
+              <option value="CONSUMENT">Consument</option>
+              <option value="MEDIA">Media</option>
+              <option value="MANAGER">Manager</option>
+            </select>
+          </div>
+          <div>
+            <button @click="applyType" class="btn">
+              <IconRefresh class="mr-2" />
+              <span class="font-bold"> Refresh </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container mx-auto">
+      <div class="max-w-4xl sm:mx-auto mx-5 p-5 shadow-xl">
+        <table class="w-full">
+          <thead>
+            <tr class="border-b-2 border-gray-100">
+              <td class="font-bold text-lg w-12">No</td>
+              <td class="font-bold text-lg w-36">Team Name</td>
+              <td class="font-bold text-lg w-36">Score</td>
+              <td class="font-bold text-lg w-5">Config</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="(item, index) in teams"
+              :key="index"
+              class="border-b-2 border-gray-100"
+            >
+              <td class="team-number">{{ index + 1 }}</td>
+              <td class="team-name">
+                {{ item.team }}
+              </td>
+              <td class="team-score">
+                {{ item.score }}
+              </td>
+              <td class="flex items-center justify-center h-14">
+                <button @click="editTeam(item)" class="btn-sm">
+                  <IconSetting class="h-4 w-4" />
+                </button>
+                <button @click="deleteTeam(item)" class="btn-sm">
+                  <IconTrash class="h-4 w-4" />
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="4" class="h-14 py-4">
+                <button @click="openModalAdd" class="btn btn-long">
+                  <IconAdd class="mr-2" />
+                  <span class="font-bold">Add Team</span>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <Footer></Footer>
@@ -126,6 +152,7 @@ import Footer from "./Footer.vue";
 import IconSetting from "../assets/IconSetting.vue";
 import IconTrash from "../assets/IconTrash.vue";
 import IconAdd from "../assets/IconAdd";
+import IconRefresh from "../assets/IconRefesh.vue";
 
 export default {
   name: "CommunityDashboard",
@@ -135,12 +162,13 @@ export default {
     IconSetting,
     IconTrash,
     IconAdd,
+    IconRefresh,
     Footer,
   },
 
   data() {
     return {
-      team: 1,
+      type: "",
       teams: [],
       showModalAdd: false,
       showModalEdit: false,
@@ -151,23 +179,39 @@ export default {
     };
   },
 
-  created() {
-    axios.get(`${CONFIG.API_URL}/getAll`).then((res) => {
-      console.log(res);
-      this.teams = res.data;
-    });
-  },
-
   methods: {
+    applyType() {
+      if (!this.checkType()) {
+        return;
+      }
+
+      axios.get(`${CONFIG.API_URL}/getAll?type=${this.type}`).then((res) => {
+        console.log(res);
+        this.teams = res.data;
+      });
+    },
+
+    checkType() {
+      if (this.type === "") {
+        alert("select category dulu");
+        return false;
+      }
+      return true;
+    },
+
     addTeam() {
       axios
-        .post(`${CONFIG.API_URL}/addTeam`, { team: this.inputTeamName })
+        .post(`${CONFIG.API_URL}/addTeam`, {
+          team: this.inputTeamName,
+          type: this.type,
+        })
         .then((res) => {
           console.log(res);
           this.teams.push({
             id: res.data.id,
             team: this.inputTeamName,
             score: 0,
+            type: this.type,
           });
           this.closeModalAdd();
         });
@@ -214,6 +258,11 @@ export default {
     },
 
     openModalAdd() {
+      if (!this.checkType()) {
+        return;
+      }
+      this.inputTeamId = "";
+      this.inputTeamName = "";
       this.showModalAdd = true;
     },
     closeModalAdd() {

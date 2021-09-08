@@ -16,7 +16,7 @@ import LastUpdate from "./LastUpdate.vue";
 import Footer from "./Footer.vue";
 
 export default {
-  name: "CommunityScore",
+  name: "ManagerScore",
   components: {
     Header,
     Scoreboard,
@@ -26,11 +26,11 @@ export default {
 
   data() {
     return {
-      type: "COMMUNITY",
+      type: "MANAGER",
       teams: [],
       updateTime: null,
       interval: null,
-      title: "Community Scoreboard",
+      title: "Manager Scoreboard",
     };
   },
 
