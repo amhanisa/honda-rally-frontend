@@ -41,7 +41,7 @@ export default {
 
   methods: {
     checkPassword() {
-      console.log(this.password);
+      // console.log(this.password);
       if (this.password === "aingganteng") {
         localStorage.setItem("user-password", this.password);
         this.error = false;

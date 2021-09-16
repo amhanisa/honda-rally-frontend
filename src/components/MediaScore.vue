@@ -51,7 +51,7 @@ export default {
   methods: {
     updateRanks() {
       axios.get(`${CONFIG.API_URL}/getRanks?type=${this.type}`).then((res) => {
-        console.log(res);
+        // console.log(res);
         this.teams = res.data.ranks;
         const date = new Date(res.data.updateTime);
         const options = {
