@@ -13,6 +13,10 @@ import axios from "axios";
 import CONFIG from "./config/config";
 
 const checkAccess = () => {
+  if (localStorage.getItem("user-password")) {
+    return;
+  }
+
   return axios.get(`${CONFIG.API_URL}/checkAccess`).then((res) => {
     console.log(res);
     const enableWebsite = res.data;
@@ -36,7 +40,7 @@ const routes = [
   { path: "/media", component: MediaScore, beforeEnter: [checkAccess] },
   { path: "/manager", component: ManagerScore, beforeEnter: [checkAccess] },
   { path: "/app", component: Dashboard, beforeEnter: [checkAdmin] },
-  { path: "/all", component: AllScore },
+  { path: "/all", component: AllScore, beforeEnter: [checkAdmin] },
   { path: "/close", component: Close },
   { path: "/theprotector", component: TheProtector },
   { path: "/:pathMatch(.*)*", component: NotFound },
