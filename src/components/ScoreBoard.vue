@@ -32,19 +32,23 @@
               <img
                 src="../assets/rank3.svg"
                 alt="Rank 3"
-                class="w-12 mx-auto"
+                class="w-12 mx-auto self-center"
               />
             </span>
             <span v-else class="w-28">{{ index + 1 }}</span>
 
-            <span v-if="index < 3" class="w-96 font-bold text-2xl">{{
-              item.team
-            }}</span>
+            <span
+              v-if="index < 3"
+              class="w-96 font-bold text-2xl self-center"
+              >{{ item.team }}</span
+            >
             <span v-else class="w-96">{{ item.team }}</span>
 
-            <span v-if="index < 3" class="w-28 font-bold text-2xl">{{
-              item.score
-            }}</span>
+            <span
+              v-if="index < 3"
+              class="w-28 font-bold text-2xl self-center"
+              >{{ item.score }}</span
+            >
             <span v-else class="w-28">{{ item.score }}</span>
           </li>
         </transition-group>

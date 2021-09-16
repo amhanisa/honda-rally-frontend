@@ -1,11 +1,17 @@
 <template>
   <div>
     <Header :title="this.title" />
+    <div class="flex justify-around stopper-cheat">
+      <h2 class="font-bold text-xl">COMMUNITY</h2>
+      <h2 class="font-bold text-xl">CONSUMENT</h2>
+      <h2 class="font-bold text-xl">MEDIA</h2>
+      <h2 class="font-bold text-xl">MANAGER</h2>
+    </div>
     <div class="flex justify-center">
-      <Scoreboard :teams="communityTeams"></Scoreboard>
-      <Scoreboard :teams="consumentTeams"></Scoreboard>
-      <Scoreboard :teams="mediaTeams"></Scoreboard>
-      <Scoreboard :teams="managerTeams"></Scoreboard>
+      <Scoreboard class="mx-2" :teams="communityTeams"></Scoreboard>
+      <Scoreboard class="mx-2" :teams="consumentTeams"></Scoreboard>
+      <Scoreboard class="mx-2" :teams="mediaTeams"></Scoreboard>
+      <Scoreboard class="mx-2" :teams="managerTeams"></Scoreboard>
     </div>
     <Footer />
   </div>
