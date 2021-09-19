@@ -21,7 +21,7 @@
 import axios from "axios";
 import CONFIG from "../config/config";
 import Header from "./Header.vue";
-import Scoreboard from "./Scoreboard";
+import Scoreboard from "./ScoreBoard";
 import Footer from "./Footer.vue";
 
 export default {

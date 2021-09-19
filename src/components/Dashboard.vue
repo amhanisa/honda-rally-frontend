@@ -144,6 +144,7 @@
             id="first-name"
             autocomplete="given-name"
             v-model="this.inputTeamScore"
+            @blur="calculate(this.inputTeamScore)"
             class="input"
           />
         </div>
@@ -253,6 +254,10 @@ export default {
         return false;
       }
       return true;
+    },
+
+    calculate(item) {
+      this.inputTeamScore = eval(item);
     },
 
     addTeam() {
