@@ -1,7 +1,7 @@
 <template>
   <img
-    alt="Honda Challenge 2.0 Logo"
-    src="../assets/hc2-logo.png"
+    alt="Honda Challenge 3.0 Logo"
+    src="../assets/hc3-logo.png"
     class="max-w-xs mx-auto"
   />
   <h1 class="text-4xl font-bold">{{ this.title }}</h1>

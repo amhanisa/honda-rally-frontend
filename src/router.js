@@ -1,5 +1,6 @@
 import { createWebHistory, createRouter } from "vue-router";
 import Home from "./components/Home.vue";
+import SupervisorScore from "./components/SupervisorScore.vue";
 import CommunityScore from "./components/CommunityScore.vue";
 import ConsumentScore from "./components/ConsumentScore.vue";
 import MediaScore from "./components/MediaScore.vue";
@@ -34,14 +35,20 @@ const checkAdmin = () => {
 };
 
 const routes = [
-  { path: "/", component: Home },
+  {
+    path: "/",
+    component: SupervisorScore,
+    beforeEnter: [checkAccess],
+    name: "home",
+  },
+  { path: "/winner", component: Home, beforeEnter: [checkAdmin] },
   { path: "/community", component: CommunityScore, beforeEnter: [checkAccess] },
   { path: "/consument", component: ConsumentScore, beforeEnter: [checkAccess] },
   { path: "/media", component: MediaScore, beforeEnter: [checkAccess] },
   { path: "/manager", component: ManagerScore, beforeEnter: [checkAccess] },
   { path: "/app", component: Dashboard, beforeEnter: [checkAdmin] },
   { path: "/all", component: AllScore, beforeEnter: [checkAdmin] },
-  { path: "/close", component: Close },
+  { path: "/close", component: Close, name: "close" },
   { path: "/theprotector", component: TheProtector },
   { path: "/:pathMatch(.*)*", component: NotFound },
 ];

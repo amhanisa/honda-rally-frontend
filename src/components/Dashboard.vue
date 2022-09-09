@@ -9,11 +9,7 @@
             <p class="text-left font-bold text-sm mb-2">Select Category:</p>
             <div class="flex flex-col sm:flex-row">
               <select v-model="type" @change="applyType">
-                <option disabled>Please select one</option>
-                <option value="COMMUNITY">Community</option>
-                <option value="CONSUMENT">Consument</option>
-                <option value="MEDIA">Media</option>
-                <option value="MANAGER">Manager</option>
+                <option value="SUPERVISOR" selected>Supervisor</option>
               </select>
               <button @click="applyType" class="btn">
                 <IconRefresh class="mr-2" />
@@ -23,6 +19,9 @@
                 <IconLogout class="mr-2" />
                 <span class="font-bold"> Logout </span>
               </button>
+              <router-link class="btn btn-home" to="/winner">
+                See The Winner
+              </router-link>
             </div>
           </div>
           <div>
@@ -202,7 +201,7 @@ import IconRefresh from "../assets/IconRefesh.vue";
 import IconLogout from "../assets/IconLogout.vue";
 
 export default {
-  name: "CommunityDashboard",
+  name: "Dashboard",
 
   components: {
     Modal,
@@ -216,7 +215,7 @@ export default {
 
   data() {
     return {
-      type: "",
+      type: "SUPERVISOR",
       teams: [],
       showModalAdd: false,
       showModalEdit: false,
@@ -233,6 +232,11 @@ export default {
     axios.get(`${CONFIG.API_URL}/checkAccess`).then((res) => {
       console.log(res);
       this.enableWebsite = res.data;
+    });
+
+    axios.get(`${CONFIG.API_URL}/getAll?type=${this.type}`).then((res) => {
+      console.log(res);
+      this.teams = res.data;
     });
   },
 
