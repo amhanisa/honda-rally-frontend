@@ -1,9 +1,7 @@
 import { createWebHistory, createRouter } from "vue-router";
 import Home from "./components/Home.vue";
-import CommunityScore from "./components/CommunityScore.vue";
-import ConsumentScore from "./components/ConsumentScore.vue";
-import MediaScore from "./components/MediaScore.vue";
-import ManagerScore from "./components/ManagerScore.vue";
+import CustomerScore from "./components/CustomerScore.vue";
+import SupervisorScore from "./components/SupervisorScore.vue";
 import Dashboard from "./components/Dashboard.vue";
 import AllScore from "./components/AllScore.vue";
 import Close from "./components/Close.vue";
@@ -35,10 +33,12 @@ const checkAdmin = () => {
 
 const routes = [
   { path: "/", component: Home },
-  { path: "/community", component: CommunityScore, beforeEnter: [checkAccess] },
-  { path: "/consument", component: ConsumentScore, beforeEnter: [checkAccess] },
-  { path: "/media", component: MediaScore, beforeEnter: [checkAccess] },
-  { path: "/manager", component: ManagerScore, beforeEnter: [checkAccess] },
+  { path: "/customer", component: CustomerScore, beforeEnter: [checkAccess] },
+  {
+    path: "/supervisor",
+    component: SupervisorScore,
+    beforeEnter: [checkAccess],
+  },
   { path: "/app", component: Dashboard, beforeEnter: [checkAdmin] },
   { path: "/all", component: AllScore, beforeEnter: [checkAdmin] },
   { path: "/close", component: Close },

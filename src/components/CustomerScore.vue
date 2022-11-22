@@ -18,7 +18,7 @@ import BackHome from "./BackHome.vue";
 import Footer from "./Footer.vue";
 
 export default {
-  name: "ConsumentScore",
+  name: "CustomerScore",
   components: {
     Header,
     Scoreboard,
@@ -29,11 +29,11 @@ export default {
 
   data() {
     return {
-      type: "CONSUMENT",
+      type: "CUSTOMER",
       teams: [],
       updateTime: null,
       interval: null,
-      title: "Consument Scoreboard",
+      title: "Customer Scoreboard",
     };
   },
 

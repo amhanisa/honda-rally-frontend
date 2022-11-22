@@ -18,7 +18,7 @@ import BackHome from "./BackHome.vue";
 import Footer from "./Footer.vue";
 
 export default {
-  name: "ManagerScore",
+  name: "SupervisorScore",
   components: {
     Header,
     Scoreboard,
@@ -29,11 +29,11 @@ export default {
 
   data() {
     return {
-      type: "MANAGER",
+      type: "SUPERVISOR",
       teams: [],
       updateTime: null,
       interval: null,
-      title: "Manager Scoreboard",
+      title: "Supervisor Scoreboard",
     };
   },
 

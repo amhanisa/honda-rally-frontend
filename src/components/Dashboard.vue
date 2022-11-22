@@ -10,15 +10,19 @@
             <div class="flex flex-col sm:flex-row">
               <select v-model="type" @change="applyType">
                 <option disabled>Please select one</option>
-                <option value="COMMUNITY">Community</option>
-                <option value="CONSUMENT">Consument</option>
-                <option value="MEDIA">Media</option>
-                <option value="MANAGER">Manager</option>
+                <option value="CUSTOMER">Customer</option>
+                <option value="SUPERVISOR">Supervisor</option>
               </select>
               <button @click="applyType" class="btn">
                 <IconRefresh class="mr-2" />
                 <span class="font-bold"> Refresh </span>
               </button>
+              <router-link class="btn" to="/all">
+                <span class="font-bold"> See All Rank </span>
+              </router-link>
+              <router-link class="btn" to="/">
+                <span class="font-bold"> Home </span>
+              </router-link>
               <button @click="logout" class="btn">
                 <IconLogout class="mr-2" />
                 <span class="font-bold"> Logout </span>
@@ -29,18 +33,11 @@
             <p class="text-left font-bold text-sm mt-3 sm:mb-2">
               Website Status:
             </p>
-            <button
-              @click="openModalEnableWebsite"
-              class="btn btn-green"
-              :class="{
-                'btn-red':
-                  this.enableWebsite === 0 || this.enableWebsite === false,
-              }"
-            >
-              <span
-                v-if="this.enableWebsite === 1 || this.enableWebsite === true"
-                class="font-bold"
-              >
+            <button @click="openModalEnableWebsite" class="btn btn-green" :class="{
+              'btn-red':
+                this.enableWebsite === 0 || this.enableWebsite === false,
+            }">
+              <span v-if="this.enableWebsite === 1 || this.enableWebsite === true" class="font-bold">
                 Enabled
               </span>
               <span v-else class="font-bold"> Disabled </span>
@@ -62,11 +59,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr
-              v-for="(item, index) in teams"
-              :key="index"
-              class="border-b-2 border-gray-100"
-            >
+            <tr v-for="(item, index) in teams" :key="index" class="border-b-2 border-gray-100">
               <td class="team-number">{{ index + 1 }}</td>
               <td class="team-name">
                 {{ item.team }}
@@ -104,14 +97,8 @@
         <label for="first-name" class="block text-sm font-medium text-gray-700">
           Team Name
         </label>
-        <input
-          type="text"
-          name="first-name"
-          id="first-name"
-          v-model="inputTeamName"
-          autocomplete="given-name"
-          class="input"
-        />
+        <input type="text" name="first-name" id="first-name" v-model="inputTeamName" autocomplete="given-name"
+          class="input" />
       </template>
       <template v-slot:footer>
         <button @click="addTeam" class="btn btn-primary">Add</button>
@@ -125,28 +112,15 @@
           <label for="first-name" class="block text-sm font-bold text-gray-700">
             Team Name
           </label>
-          <input
-            type="text"
-            name="first-name"
-            id="first-name"
-            autocomplete="given-name"
-            v-model="this.inputTeamName"
-            class="input"
-          />
+          <input type="text" name="first-name" id="first-name" autocomplete="given-name" v-model="this.inputTeamName"
+            class="input" />
         </div>
         <div>
           <label for="first-name" class="block text-sm font-bold text-gray-700">
             Score
           </label>
-          <input
-            type="text"
-            name="first-name"
-            id="first-name"
-            autocomplete="given-name"
-            v-model="this.inputTeamScore"
-            @blur="calculate(this.inputTeamScore)"
-            class="input"
-          />
+          <input type="text" name="first-name" id="first-name" autocomplete="given-name" v-model="this.inputTeamScore"
+            @blur="calculate(this.inputTeamScore)" class="input" />
         </div>
       </template>
       <template v-slot:footer>
@@ -159,8 +133,7 @@
       <template v-slot:body>
         <p>
           Are you sure to delete
-          <span class="font-bold">{{ inputTeamName }}</span
-          >?
+          <span class="font-bold">{{ inputTeamName }}</span>?
         </p>
       </template>
       <template v-slot:footer>
@@ -168,10 +141,7 @@
       </template>
     </Modal>
 
-    <Modal
-      v-show="this.showModalEnableWebsite"
-      @close="this.closeModalEnableWebsite"
-    >
+    <Modal v-show="this.showModalEnableWebsite" @close="this.closeModalEnableWebsite">
       <template v-slot:header>Active/Deactive Website</template>
       <template v-slot:body>
         <p>

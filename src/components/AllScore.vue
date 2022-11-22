@@ -2,16 +2,12 @@
   <div>
     <Header :title="this.title" />
     <div class="flex justify-around stopper-cheat">
-      <h2 class="font-bold text-xl">COMMUNITY</h2>
-      <h2 class="font-bold text-xl">CONSUMENT</h2>
-      <h2 class="font-bold text-xl">MEDIA</h2>
-      <h2 class="font-bold text-xl">MANAGER</h2>
+      <h2 class="font-bold text-xl">CUSTOMER</h2>
+      <h2 class="font-bold text-xl">SUPERVISOR</h2>
     </div>
     <div class="flex justify-center">
-      <Scoreboard class="mx-2" :teams="communityTeams"></Scoreboard>
-      <Scoreboard class="mx-2" :teams="consumentTeams"></Scoreboard>
-      <Scoreboard class="mx-2" :teams="mediaTeams"></Scoreboard>
-      <Scoreboard class="mx-2" :teams="managerTeams"></Scoreboard>
+      <Scoreboard class="mx-2" :teams="customerTeams"></Scoreboard>
+      <Scoreboard class="mx-2" :teams="supervisorTeams"></Scoreboard>
     </div>
     <Footer />
   </div>
@@ -34,10 +30,8 @@ export default {
 
   data() {
     return {
-      communityTeams: [],
-      consumentTeams: [],
-      mediaTeams: [],
-      managerTeams: [],
+      customerTeams: [],
+      supervisorTeams: [],
       updateTime: null,
       interval: null,
       title: "Scoreboard",
@@ -59,18 +53,15 @@ export default {
     updateRanks() {
       axios
         .all([
-          axios.get(`${CONFIG.API_URL}/getRanks?type=COMMUNITY`),
-          axios.get(`${CONFIG.API_URL}/getRanks?type=CONSUMENT`),
+          axios.get(`${CONFIG.API_URL}/getRanks?type=CUSTOMER`),
+          axios.get(`${CONFIG.API_URL}/getRanks?type=SUPERVISOR`),
           axios.get(`${CONFIG.API_URL}/getRanks?type=MEDIA`),
           axios.get(`${CONFIG.API_URL}/getRanks?type=MANAGER`),
         ])
         .then(
           axios.spread((...res) => {
-            this.communityTeams = res[0].data.ranks;
-            console.log(res);
-            this.consumentTeams = res[1].data.ranks;
-            this.mediaTeams = res[2].data.ranks;
-            this.managerTeams = res[3].data.ranks;
+            this.customerTeams = res[0].data.ranks;
+            this.supervisorTeams = res[1].data.ranks;
           })
         );
     },
