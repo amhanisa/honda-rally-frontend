@@ -2,7 +2,12 @@
   <div>
     <Header :title="this.title" />
     <LastUpdate :updateTime="this.updateTime" />
-    <BackHome />
+    <button type="button" v-if="!counting" class="btn btn-home" :disabled="counting" @click="startCountdown">START
+      COUNTDOWN</button>
+    <vue-countdown v-if="counting" @end="onCountdownEnd" :time=this.time v-slot="{ minutes, seconds }"
+      :transform="transformSlotProps" class="countdown">
+      {{ minutes }} : {{ seconds }}
+    </vue-countdown>
     <Scoreboard :teams="teams"></Scoreboard>
     <Footer />
   </div>
@@ -14,26 +19,26 @@ import CONFIG from "../config/config";
 import Header from "./Header.vue";
 import Scoreboard from "./ScoreBoard";
 import LastUpdate from "./LastUpdate.vue";
-import BackHome from "./BackHome.vue";
 import Footer from "./Footer.vue";
 
 export default {
-  name: "CustomerScore",
+  name: "SPK",
   components: {
     Header,
     Scoreboard,
     LastUpdate,
-    BackHome,
     Footer,
   },
 
   data() {
     return {
-      type: "CUSTOMER",
+      type: "SPK",
       teams: [],
       updateTime: null,
       interval: null,
-      title: "Customer Scoreboard",
+      title: "",
+      time: 45 * 60 * 1000,
+      counting: false,
     };
   },
 
@@ -41,7 +46,7 @@ export default {
     this.updateRanks();
     this.interval = setInterval(() => {
       this.updateRanks();
-    }, 5000);
+    }, 2500);
   },
 
   beforeUnmount() {
@@ -64,6 +69,22 @@ export default {
         };
         this.updateTime = date.toLocaleDateString("en-US", options);
       });
+    },
+    startCountdown: function () {
+      this.counting = true;
+    },
+    onCountdownEnd: function () {
+      // this.counting = false;
+      clearInterval(this.interval);
+    },
+    transformSlotProps(props) {
+      const formattedProps = {};
+
+      Object.entries(props).forEach(([key, value]) => {
+        formattedProps[key] = value < 10 ? `0${value}` : String(value);
+      });
+
+      return formattedProps;
     },
   },
 };

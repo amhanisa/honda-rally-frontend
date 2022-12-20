@@ -1,31 +1,31 @@
 .modal-fade-enter,
 .modal-fade-leave-to {
-  opacity: 0;
+    opacity: 0;
 }
 
 .modal-fade-enter-active,
 .modal-fade-leave-active {
-  transition: opacity 0.5s ease;
+    transition: opacity 0.5s ease;
 }
 
 .list-complete-item {
-  transition: all 0.8s ease;
-  display: flex;
-  margin-right: 10px;
+    transition: all 0.8s ease;
+    display: flex;
+    margin-right: 10px;
 }
 
 .list-complete-enter-from,
 .list-complete-leave-to {
-  opacity: 0;
-  transform: translateY(30px);
+    opacity: 0;
+    transform: translateY(30px);
 }
 
 .list-complete-leave-active {
-  position: absolute;
+    position: absolute;
 }
 
 .btn-sm {
-  @apply mx-2
+    @apply mx-2
   w-auto
   rounded-md
   border border-gray-300
@@ -42,7 +42,7 @@
 }
 
 .btn {
-  @apply mt-3
+    @apply mt-3
   w-full
   inline-flex
   justify-center
@@ -63,14 +63,14 @@
 }
 
 .btn-primary {
-  @apply bg-purple-600
+    @apply bg-purple-600
   text-white
   hover:bg-purple-700
   focus:ring-purple-500;
 }
 
 .input {
-  @apply mt-1
+    @apply mt-1
   focus:ring-indigo-500
   focus:border-indigo-500
   block
@@ -82,31 +82,35 @@
 }
 
 .btn-long {
-  @apply px-10
+    @apply px-10
   m-0;
 }
 
 .btn-home {
-  @apply py-4
+    @apply py-4
   font-bold;
 }
 
 .btn-green {
-  @apply bg-green-600
+    @apply bg-green-600
   text-white
   hover:bg-green-700
   focus:ring-green-500;
 }
 
 .btn-red {
-  @apply bg-red-600
+    @apply bg-red-600
   text-white
   hover:bg-red-700
   focus:ring-red-500;
 }
 
 .stopper-cheat {
-  max-width: 2378px;
-  margin: auto;
-  margin-top: 3rem;
+    max-width: 2378px;
+    margin: auto;
+    margin-top: 3rem;
+}
+
+.countdown {
+    font-size: 4rem;
 }

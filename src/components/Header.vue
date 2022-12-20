@@ -1,9 +1,5 @@
 <template>
-  <img
-    alt="Honda Challenge 2.0 Logo"
-    src="../assets/logo-cirebon.png"
-    class="max-w-xs mx-auto"
-  />
+  <img alt="Logo Gala" src="../assets/logo-gala.png" class="max-w-xs mx-auto" />
   <h1 class="text-4xl font-bold">{{ this.title }}</h1>
 </template>
 <script>
