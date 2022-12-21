@@ -14,6 +14,9 @@
               <router-link class="btn" to="/">
                 <span class="font-bold"> Home </span>
               </router-link>
+              <button @click="resetTime" class="btn">
+                <span class="font-bold"> Reset Countdown </span>
+              </button>
               <button @click="logout" class="btn">
                 <IconLogout class="mr-2" />
                 <span class="font-bold"> Logout </span>
@@ -291,6 +294,10 @@ export default {
           console.log(this.enableWebsite);
           this.closeModalEnableWebsite();
         });
+    },
+    resetTime() {
+      localStorage.removeItem('time')
+      this.$router.push('/spk');
     },
 
     openModalAdd() {

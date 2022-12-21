@@ -47,6 +47,17 @@ export default {
     this.interval = setInterval(() => {
       this.updateRanks();
     }, 2500);
+
+    let time = localStorage.getItem('time');
+    let now = Math.floor(Date.now() / 1000);
+
+    let selisih = now - parseInt(time);
+
+    if (time) {
+      this.time = (45 * 60 * 1000) - (selisih * 1000);
+      this.counting = true;
+    }
+
   },
 
   beforeUnmount() {
@@ -72,6 +83,9 @@ export default {
     },
     startCountdown: function () {
       this.counting = true;
+
+      localStorage.setItem('time', Math.floor(Date.now() / 1000));
+
     },
     onCountdownEnd: function () {
       // this.counting = false;
