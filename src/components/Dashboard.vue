@@ -15,7 +15,10 @@
                 <span class="font-bold"> Home </span>
               </router-link>
               <button @click="resetTime" class="btn">
-                <span class="font-bold"> Reset Countdown </span>
+                <span class="font-bold"> Reset Countdown 45' </span>
+              </button>
+              <button @click="resetTime2" class="btn">
+                <span class="font-bold"> Reset Countdown 15' </span>
               </button>
               <button @click="logout" class="btn">
                 <IconLogout class="mr-2" />
@@ -298,6 +301,10 @@ export default {
     resetTime() {
       localStorage.removeItem('time')
       this.$router.push('/spk');
+    },
+    resetTime2() {
+      localStorage.removeItem('time2')
+      this.$router.push('/spk2');
     },
 
     openModalAdd() {

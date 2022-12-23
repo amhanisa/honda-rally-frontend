@@ -11,7 +11,10 @@
         <div class="flex flex-col">
           <p class="font-bold text-lg mb-3 text-gray-400">Select Category</p>
           <router-link class="btn my-4 btn-home" to="/spk">
-            SPK
+            SPK 45'
+          </router-link>
+          <router-link class="btn my-4 btn-home" to="/spk2">
+            SPK 15'
           </router-link>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import { createWebHistory, createRouter } from "vue-router";
 import Home from "./components/Home.vue";
 import SPK from "./components/SPK.vue";
+import SPKTwo from "./components/SPKTwo.vue";
 import Dashboard from "./components/Dashboard.vue";
 import Close from "./components/Close.vue";
 import NotFound from "./components/NotFound.vue";
@@ -39,6 +40,7 @@ const checkAdmin = () => {
 const routes = [
     { path: "/", component: Home },
     { path: "/spk", component: SPK, beforeEnter: [checkAdmin] },
+    { path: "/spk2", component: SPKTwo, beforeEnter: [checkAdmin] },
     { path: "/app", component: Dashboard, beforeEnter: [checkAdmin] },
     { path: "/dealer1", component: DealerOne },
     { path: "/dealer2", component: DealerTwo },

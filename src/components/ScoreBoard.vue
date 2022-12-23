@@ -1,13 +1,13 @@
 <template>
   <div>
     <div class="container mx-auto">
-      <div class="max-w-xl sm:mx-auto p-5 rounded-md shadow-xl mx-5 mt-8">
-        <div class="list-complete-item mb-4">
+      <div class="max-w-xl sm:mx-auto p-5 pt-0 rounded-md shadow-xl mx-5 mt-0">
+        <div class="list-complete-item mb-1">
           <span class="w-28 font-bold text-2xl">Rank</span>
           <span class="w-96 font-bold text-2xl">Dealer Name</span>
           <span class="w-28 font-bold text-2xl">Count</span>
         </div>
-        <hr class="mb-5 border-t-2" />
+        <hr class="mb-1 border-t-2" />
         <transition-group name="list-complete" tag="ul">
           <li v-for="(item, index) in teams" :key="item.id" class="list-complete-item my-2">
             <span v-if="index === 0" class="w-28">

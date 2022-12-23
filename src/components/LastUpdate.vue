@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-4">
+  <div class="my-0">
     <p class="text-sm">Last updated on</p>
     <p class="text-xs">{{ this.updateTime }}</p>
   </div>
